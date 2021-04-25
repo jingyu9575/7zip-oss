@@ -12,7 +12,7 @@
 #endif
 
 #if !defined(USE_ASM) && _MSC_VER >= 1500
-#include <intrin.h>
+// #include <intrin.h>
 #endif
 
 #if defined(USE_ASM) && !defined(MY_CPU_AMD64)
