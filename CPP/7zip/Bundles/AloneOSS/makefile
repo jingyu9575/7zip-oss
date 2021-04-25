@@ -1,12 +1,26 @@
-PROG = 7za.exe
+PROG = 7zo.exe
+
+CFLAGS = $(CFLAGS) \
+  -DEXTERNAL_CODECS \
+
+!IFNDEF UNDER_CE
+CFLAGS = $(CFLAGS) -D_7ZIP_LARGE_PAGES
+!ENDIF
 
 COMMON_OBJS = \
   $O\CommandLineParser.obj \
   $O\CRC.obj \
   $O\CrcReg.obj \
+  $O\DynLimBuf.obj \
   $O\IntToString.obj \
   $O\ListFileUtils.obj \
+  $O\MyMap.obj \
+  $O\MyString.obj \
+  $O\MyVector.obj \
+  $O\MyXml.obj \
   $O\NewHandler.obj \
+  $O\Sha1Reg.obj \
+  $O\Sha256Reg.obj \
   $O\StdInStream.obj \
   $O\StdOutStream.obj \
   $O\MyString.obj \
@@ -33,6 +47,7 @@ WIN_OBJS = \
   $O\PropVariant.obj \
   $O\PropVariantConv.obj \
   $O\PropVariantUtils.obj \
+  $O\Registry.obj \
   $O\Synchronization.obj \
   $O\System.obj \
   $O\TimeUtils.obj \
@@ -45,7 +60,9 @@ WIN_OBJS = \
   $O\FilterCoder.obj \
   $O\InBuffer.obj \
   $O\InOutTempBuffer.obj \
+  $O\FilterCoder.obj \
   $O\LimitedStreams.obj \
+  $O\LockedStream.obj \
   $O\MemBlocks.obj \
   $O\MethodId.obj \
   $O\MethodProps.obj \
@@ -62,12 +79,46 @@ WIN_OBJS = \
   $O\VirtThread.obj \
 
 AR_OBJS = \
+  $O\ApmHandler.obj \
+  $O\ArHandler.obj \
+  $O\ArjHandler.obj \
   $O\Bz2Handler.obj \
+  $O\ComHandler.obj \
+  $O\CpioHandler.obj \
+  $O\CramfsHandler.obj \
   $O\DeflateProps.obj \
+  $O\DmgHandler.obj \
+  $O\ElfHandler.obj \
+  $O\ExtHandler.obj \
+  $O\FatHandler.obj \
+  $O\FlvHandler.obj \
+  $O\GExternalCodecs.obj \
+  $O\GptHandler.obj \
   $O\GzHandler.obj \
+  $O\HandlerCont.obj \
+  $O\HfsHandler.obj \
+  $O\IhexHandler.obj \
+  $O\LzhHandler.obj \
   $O\LzmaHandler.obj \
+  $O\MachoHandler.obj \
+  $O\MbrHandler.obj \
+  $O\MslzHandler.obj \
+  $O\MubHandler.obj \
+  $O\NtfsHandler.obj \
+  $O\PeHandler.obj \
+  $O\PpmdHandler.obj \
+  $O\QcowHandler.obj \
+  $O\RpmHandler.obj \
   $O\SplitHandler.obj \
+  $O\SquashfsHandler.obj \
+  $O\SwfHandler.obj \
+  $O\UefiHandler.obj \
+  $O\VdiHandler.obj \
+  $O\VhdHandler.obj \
+  $O\VmdkHandler.obj \
+  $O\XarHandler.obj \
   $O\XzHandler.obj \
+  $O\ZHandler.obj \
 
 AR_COMMON_OBJS = \
   $O\CoderMixer2.obj \
@@ -78,6 +129,8 @@ AR_COMMON_OBJS = \
   $O\ItemNameUtils.obj \
   $O\MultiStream.obj \
   $O\OutStreamWithCRC.obj \
+  $O\OutStreamWithSha1.obj \
+  $O\HandlerOut.obj \
   $O\ParseProperties.obj \
 
 
@@ -104,6 +157,22 @@ CAB_OBJS = \
   $O\CabIn.obj \
   $O\CabRegister.obj \
 
+CHM_OBJS = \
+  $O\ChmHandler.obj \
+  $O\ChmIn.obj \
+
+ISO_OBJS = \
+  $O\IsoHandler.obj \
+  $O\IsoHeader.obj \
+  $O\IsoIn.obj \
+  $O\IsoRegister.obj \
+
+NSIS_OBJS = \
+  $O\NsisDecode.obj \
+  $O\NsisHandler.obj \
+  $O\NsisIn.obj \
+  $O\NsisRegister.obj \
+
 TAR_OBJS = \
   $O\TarHandler.obj \
   $O\TarHandlerOut.obj \
@@ -112,6 +181,16 @@ TAR_OBJS = \
   $O\TarOut.obj \
   $O\TarUpdate.obj \
   $O\TarRegister.obj \
+
+UDF_OBJS = \
+  $O\UdfHandler.obj \
+  $O\UdfIn.obj \
+
+WIM_OBJS = \
+  $O\WimHandler.obj \
+  $O\WimHandlerOut.obj \
+  $O\WimIn.obj \
+  $O\WimRegister.obj \
 
 ZIP_OBJS = \
   $O\ZipAddCommon.obj \
@@ -133,7 +212,7 @@ COMPRESS_OBJS = \
   $O\BranchMisc.obj \
   $O\BranchRegister.obj \
   $O\ByteSwap.obj \
-  $O\BZip2CRC.obj \
+  $O\BZip2Crc.obj \
   $O\BZip2Decoder.obj \
   $O\BZip2Encoder.obj \
   $O\BZip2Register.obj \
@@ -145,12 +224,15 @@ COMPRESS_OBJS = \
   $O\DeflateRegister.obj \
   $O\DeltaFilter.obj \
   $O\ImplodeDecoder.obj \
+  $O\LzfseDecoder.obj \
+  $O\LzhDecoder.obj \
   $O\Lzma2Decoder.obj \
   $O\Lzma2Encoder.obj \
   $O\Lzma2Register.obj \
   $O\LzmaDecoder.obj \
   $O\LzmaEncoder.obj \
   $O\LzmaRegister.obj \
+  $O\LzmsDecoder.obj \
   $O\LzOutWindow.obj \
   $O\LzxDecoder.obj \
   $O\PpmdDecoder.obj \
@@ -159,13 +241,19 @@ COMPRESS_OBJS = \
   $O\PpmdZip.obj \
   $O\QuantumDecoder.obj \
   $O\ShrinkDecoder.obj \
+  $O\XpressDecoder.obj \
   $O\XzDecoder.obj \
   $O\XzEncoder.obj \
+  $O\ZlibDecoder.obj \
+  $O\ZlibEncoder.obj \
+  $O\ZDecoder.obj \
+
 
 CRYPTO_OBJS = \
   $O\7zAes.obj \
   $O\7zAesRegister.obj \
   $O\HmacSha1.obj \
+  $O\HmacSha256.obj \
   $O\MyAes.obj \
   $O\MyAesReg.obj \
   $O\Pbkdf2HmacSha1.obj \
@@ -174,11 +262,14 @@ CRYPTO_OBJS = \
   $O\ZipCrypto.obj \
   $O\ZipStrong.obj \
 
+
 C_OBJS = \
+  $O\7zBuf2.obj \
   $O\7zStream.obj \
   $O\Alloc.obj \
   $O\Bcj2.obj \
   $O\Bcj2Enc.obj \
+  $O\Blake2s.obj \
   $O\Bra.obj \
   $O\Bra86.obj \
   $O\BraIA64.obj \
