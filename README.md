@@ -4,7 +4,7 @@ This repository adds a build variant `7zo.exe` of the [7-Zip](https://www.7-zip.
 
 ## Build
 
-To obtain executables linking dynamically to `msvcrt.dll`, the compilers from [Windows Driver Kit Version 7.1.0](https://www.microsoft.com/en-us/download/details.aspx?id=11800) can be used.
+To obtain executables linking dynamically to `msvcrt.dll`, the compilers from [Windows Driver Kit Version 7.1.0](https://www.microsoft.com/en-us/download/details.aspx?id=11800) can be used, with additional API headers `MAPI.h`, `Psapi.h` from Windows SDK v7.1A.
 
 Change to the directory `CPP/7zip/Bundles/AloneOSS`. For x64 build:
 
